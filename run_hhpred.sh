@@ -1,8 +1,10 @@
 #!/bin/bash
+set -e
+
 #hhsuite is required to run this script https://github.com/soedinglab/hh-suite
 #usage ./run_hhpred.sh input.fasta output_path
 
-set -e
+
 
 
 fasta=$1
