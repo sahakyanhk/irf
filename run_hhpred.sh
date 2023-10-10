@@ -1,4 +1,5 @@
 #!/bin/bash
+#hhsuite is required to run this script https://github.com/soedinglab/hh-suite
 #usage ./run_hhpred.sh input.fasta output_path
 
 set -e
@@ -11,7 +12,7 @@ OUTDIR="${2:-output/$name}" #set defoult output if the second argument in null
 Ncpu=24
 Niter=3
 
-#dbs
+#dbs from http://ftp.tuebingen.mpg.de/pub/protevo/toolkit/databases/hhsuite_dbs/
 UR30=/fdb/hhsuite/UniRef30_2022_02/UniRef30_2022_02
 ECOD70=/data/saakyanh2/dbs/hhsuite/ECOD/ECOD_F70/ECOD_F70_20220613
 PDB70=/data/saakyanh2/dbs/hhsuite/pdb70/pdb70
@@ -23,23 +24,23 @@ CATH=/data/saakyanh2/dbs/hhsuite/CATH/CATH_S40
 
 
 hhblits="hhblits	-cpu $Ncpu \
-					-d $UR30 \
-					-n $Niter \
-					-o /dev/null \
-					-e 1e-3 -p 20 \
-					-z 1 -Z 250 -b 1 -B 250 \
-					-v 1"
+			-d $UR30 \
+			-n $Niter \
+			-o /dev/null \
+			-e 1e-3 -p 20 \
+			-z 1 -Z 250 -b 1 -B 250 \
+			-v 1"
 
 hhsearch="hhsearch	-cpu $Ncpu \
-					-d $PDB70 -d $PFAM -d $CDD -d $COG -d $SCOPE -d $CATH \
-					-p 60 -cov 30 \
-					-z 1 -Z 250 -b 1 -B 250 \
-					-loc -norealign \
-					-seq 1 -ssm 2 -sc 1 \
-					-dbstrlen 10000 \
-					-maxres 32000 \
-					-contxt /data/saakyanh2/dbs/hhsuite/context_data.crf \
-					-v 1"
+			-d $PDB70 -d $PFAM -d $CDD -d $COG -d $SCOPE -d $CATH \
+			-p 60 -cov 30 \
+			-z 1 -Z 250 -b 1 -B 250 \
+			-loc -norealign \
+			-seq 1 -ssm 2 -sc 1 \
+			-dbstrlen 10000 \
+			-maxres 32000 \
+			-contxt /data/saakyanh2/dbs/hhsuite/context_data.crf \
+			-v 1"
 
 
 if [ -e $OUTDIR ]; then
