@@ -13,11 +13,6 @@ import torch
 import esm
 import esm.inverse_folding
 
-#https://github.com/dauparas/ProteinMPNN/tree/main try this instead of esm-if
-
-
-#!!!!! ADD PDB PROCESSING, FILTER ATOMS, RENAME CHAIN TO "A", ADD PDB FETCHING
-
 #backup if output directory exists
 def backup_output(outpath):
     print(f'\nSaving output files to {os.getcwd()}/{args.outpath}')
@@ -171,12 +166,6 @@ def make_backbone_traj(outpath):
 
     traj = bs.from_template(backbone, np.array(coord))
     bs.io.save_structure(args.outpath + '/' + basename + '_traj.pdb', traj)
-
-
-#do PCA or build a tree using to cluster diverse MSAs 
-# def cluster_by_tree:
-#     return cluster
-    
 
 def inverse_cycle(model_if, model_v1, alphabet, args):  
 
@@ -393,14 +382,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
 
-    #backup if output directory exists
+    #backup if the output directory exists
     backup_output(args.outpath)
 
    
-    #
-    #check arguments and input paths before loading models 
-    #
-
     #load models
     print('\nloading esm.pretrained.esmfold_v1... \n')
     model_v1 = esm.pretrained.esmfold_v1()
